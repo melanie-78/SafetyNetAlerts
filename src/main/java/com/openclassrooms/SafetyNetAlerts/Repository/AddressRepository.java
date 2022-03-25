@@ -1,4 +1,4 @@
-package com.openclassrooms.SafetyNetAlerts.data;
+package com.openclassrooms.SafetyNetAlerts.Repository;
 
 import com.openclassrooms.SafetyNetAlerts.model.Address;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AdresseWrapper {
+public class DataWrapper {
 
     private List<PersonDto> persons;
 

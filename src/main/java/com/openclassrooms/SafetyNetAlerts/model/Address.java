@@ -15,8 +15,7 @@ import java.util.Objects;
 
 public class Address {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="address_seq")
-    @SequenceGenerator(name = "address_seq",sequenceName = "address_seq_table")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique=true)
     private String label;

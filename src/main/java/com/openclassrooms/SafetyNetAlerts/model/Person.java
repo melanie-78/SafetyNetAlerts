@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -14,15 +15,17 @@ import javax.persistence.*;
 public class Person {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="person_seq")
-    @SequenceGenerator(name = "person_seq",sequenceName = "person_seq_table")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String firstName;
     private String lastName;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL )
+    @ManyToOne(optional = false)
     private Address address;
 
     private String phone;
     private String email;
+
+    @OneToMany(mappedBy = "person")
+    private List<MedicalRecord> medicalRecord;
 }

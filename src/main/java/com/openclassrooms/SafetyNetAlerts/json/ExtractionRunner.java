@@ -3,6 +3,7 @@ package com.openclassrooms.SafetyNetAlerts.json;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.openclassrooms.SafetyNetAlerts.json.dto.FireStationDto;
+import com.openclassrooms.SafetyNetAlerts.json.mapper.AddressMapper;
 import com.openclassrooms.SafetyNetAlerts.json.mapper.PersonMapper;
 import com.openclassrooms.SafetyNetAlerts.model.Address;
 import com.openclassrooms.SafetyNetAlerts.model.FireStation;
@@ -37,20 +38,25 @@ public class ExtractionRunner implements CommandLineRunner{
     private MedicalRecordService medicalRecordService;
     @Autowired
     private AddressService addressService;
-
+    @Autowired
+    private PersonMapper personMapper;
+    @Autowired
+    private AddressMapper addressMapper;
 
     @Override
     @Transactional
     public void run(String... args) throws Exception {
         //read json and write to H2 db
         ObjectMapper mapper = new ObjectMapper();
-        TypeReference<AdresseWrapper> typeReference = new TypeReference<AdresseWrapper>() {
+        TypeReference<DataWrapper> typeReference = new TypeReference<DataWrapper>() {
         };
-        InputStream inputStream = TypeReference.class.getResourceAsStream("/adresses.json");
+        InputStream inputStream = TypeReference.class.getResourceAsStream("/data.json");
         try {
-            AdresseWrapper adresseWrapper = mapper.readValue(inputStream, typeReference);
+            DataWrapper adresseWrapper = mapper.readValue(inputStream, typeReference);
 
-            Map<Address, List<Person>> addressListMap = adresseWrapper.getPersons().stream().map(personDto -> PersonMapper.toEntity(personDto)).collect(groupingBy(person -> person.getAddress()));
+            Map<Address, List<Person>> addressListMap = adresseWrapper.getPersons().stream()
+                    .map(personDto -> personMapper.toEntity(personDto, addressMapper))
+                    .collect(groupingBy(person -> person.getAddress()));
             for (Map.Entry<Address, List<Person>> entry : addressListMap.entrySet()) {
                 Address address = entry.getKey();
                 Address savedAddress = addressService.save(address);
@@ -83,8 +89,8 @@ public class ExtractionRunner implements CommandLineRunner{
                 fireStation.setStation(station);
                 List<FireStationDto> values = entry.getValue();
                 List<Address> addresses = values.stream().map(fireStationDto -> {
-                    String address = fireStationDto.getAddress();
-                    Address byAddressLabel = addressService.findByAddressLabel(address);
+                    String label = fireStationDto.getAddress();
+                    Address byAddressLabel = addressService.findByAddressLabel(label);
                     return byAddressLabel;
                 }).collect(Collectors.toList());
 

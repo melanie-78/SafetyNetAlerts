@@ -2,7 +2,9 @@ package com.openclassrooms.SafetyNetAlerts.json.mapper;
 
 import com.openclassrooms.SafetyNetAlerts.json.dto.PersonDto;
 import com.openclassrooms.SafetyNetAlerts.model.Address;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AddressMapper {
     /**
      *
@@ -11,7 +13,7 @@ public class AddressMapper {
      * @return an address type associated to a person saved in H2
      */
 
-    public static Address toEntity (PersonDto personDto){
+    public Address toEntity (PersonDto personDto){
         Address address = new Address();
 
         address.setCity(personDto.getCity());

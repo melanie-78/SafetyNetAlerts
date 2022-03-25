@@ -1,6 +1,6 @@
 package com.openclassrooms.SafetyNetAlerts.service;
 
-import com.openclassrooms.SafetyNetAlerts.data.AddressRepository;
+import com.openclassrooms.SafetyNetAlerts.Repository.AddressRepository;
 import com.openclassrooms.SafetyNetAlerts.model.Address;
 import lombok.Data;
 import org.springframework.stereotype.Service;
