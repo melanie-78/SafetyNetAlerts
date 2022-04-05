@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.openclassrooms.SafetyNetAlerts.json.dto.FireStationDto;
 import com.openclassrooms.SafetyNetAlerts.json.mapper.AddressMapper;
+import com.openclassrooms.SafetyNetAlerts.json.mapper.MedicalRecordMapper;
 import com.openclassrooms.SafetyNetAlerts.json.mapper.PersonMapper;
 import com.openclassrooms.SafetyNetAlerts.model.Address;
 import com.openclassrooms.SafetyNetAlerts.model.FireStation;
@@ -42,6 +43,8 @@ public class ExtractionRunner implements CommandLineRunner{
     private PersonMapper personMapper;
     @Autowired
     private AddressMapper addressMapper;
+    @Autowired
+    private MedicalRecordMapper medicalRecordMapper;
 
     @Override
     @Transactional
@@ -51,58 +54,64 @@ public class ExtractionRunner implements CommandLineRunner{
         TypeReference<DataWrapper> typeReference = new TypeReference<DataWrapper>() {
         };
         InputStream inputStream = TypeReference.class.getResourceAsStream("/data.json");
+
         try {
-            DataWrapper adresseWrapper = mapper.readValue(inputStream, typeReference);
+            DataWrapper dataWrapper = mapper.readValue(inputStream, typeReference);
 
-            Map<Address, List<Person>> addressListMap = adresseWrapper.getPersons().stream()
-                    .map(personDto -> personMapper.toEntity(personDto, addressMapper))
-                    .collect(groupingBy(person -> person.getAddress()));
-            for (Map.Entry<Address, List<Person>> entry : addressListMap.entrySet()) {
-                Address address = entry.getKey();
-                Address savedAddress = addressService.save(address);
-                List<Person> values = entry.getValue();
-                values.forEach(person -> person.setAddress(savedAddress));
-                personService.saveAll(values);
-            }
-            System.out.println("Persons saved !");
-
-            List<MedicalRecord> medicalRecordList = adresseWrapper.getMedicalRecords().stream().map(medicalRecordDto -> {
-               MedicalRecord medicalRecord = new MedicalRecord();
-               medicalRecord.setBirthdate(medicalRecordDto.getBirthdate());
-               medicalRecord.setMedications(medicalRecordDto.getMedications());
-               medicalRecord.setAllergies(medicalRecordDto.getAllergies());
-               Person byFirstNameAndLastName = personService.findByFirstNameAndLastName(medicalRecordDto.getFirstName(), medicalRecordDto.getLastName());
-               medicalRecord.setPerson(byFirstNameAndLastName);
-               return medicalRecord;
-            }).collect(Collectors.toList());
-
-            medicalRecordService.saveAll(medicalRecordList);
-            System.out.println("MedicalRecords saved !");
-
-
-            Map<String, List<FireStationDto>> listMap = adresseWrapper.getFireStations().stream().collect(groupingBy(fireStationDto -> fireStationDto.getStation()));
-            List<FireStation> fireStationResult = new ArrayList<>();
-            for (Map.Entry<String, List<FireStationDto>> entry : listMap.entrySet()) {
-                FireStation fireStation = new FireStation();
-
-                String station = entry.getKey();
-                fireStation.setStation(station);
-                List<FireStationDto> values = entry.getValue();
-                List<Address> addresses = values.stream().map(fireStationDto -> {
-                    String label = fireStationDto.getAddress();
-                    Address byAddressLabel = addressService.findByAddressLabel(label);
-                    return byAddressLabel;
-                }).collect(Collectors.toList());
-
-                fireStation.setAddresses(addresses);
-                fireStationResult.add(fireStation);
-            }
-            fireStationService.saveAll(fireStationResult);
-            System.out.println("FireStations saved !");
+            extractPersons(dataWrapper);
+            extractMedicalRecords(dataWrapper);
+            extractFireStations(dataWrapper);
 
         } catch (IOException e) {
             System.out.println("Unable to save persons: " + e.getMessage());
         }
     }
-}
 
+    public void extractPersons(DataWrapper dataWrapper){
+        //Save persons
+        Map<Address, List<Person>> addressListMap = dataWrapper.getPersons().stream()
+                .map(personDto -> personMapper.toEntity(personDto, addressMapper))
+                .collect(groupingBy(person -> person.getAddress()));
+        for (Map.Entry<Address, List<Person>> entry : addressListMap.entrySet()) {
+            Address address = entry.getKey();
+            Address savedAddress = addressService.save(address);
+            List<Person> values = entry.getValue();
+            values.forEach(person -> person.setAddress(savedAddress));
+            personService.saveAll(values);
+        }
+        System.out.println("Persons saved !");
+    }
+    public void extractMedicalRecords(DataWrapper dataWrapper){
+        //Save medicalRecords
+        List<MedicalRecord> medicalRecordList = dataWrapper.getMedicalRecords()
+                .stream().map(medicalRecordDto -> medicalRecordMapper.toEntity(medicalRecordDto,personService))
+                .collect(Collectors.toList());
+        medicalRecordService.saveAll(medicalRecordList);
+        System.out.println("MedicalRecords saved !");
+
+    }
+    public void extractFireStations(DataWrapper dataWrapper) {
+        //Save fireStations
+        List<FireStation> fireStationResult = new ArrayList<>();
+        Map<String, List<FireStationDto>> listMap = dataWrapper.getFireStations()
+                .stream().collect(groupingBy(fireStationDto -> fireStationDto.getStation()));
+
+        for (Map.Entry<String, List<FireStationDto>> entry : listMap.entrySet()) {
+            FireStation fireStation = new FireStation();
+
+            String station = entry.getKey();
+            fireStation.setStation(station);
+            List<FireStationDto> values = entry.getValue();
+            List<Address> addresses = values.stream().map(fireStationDto -> {
+                String label = fireStationDto.getAddress();
+                Address byAddressLabel = addressService.findByAddressLabel(label);
+                return byAddressLabel;
+            }).collect(Collectors.toList());
+
+            fireStation.setAddresses(addresses);
+            fireStationResult.add(fireStation);
+        }
+        fireStationService.saveAll(fireStationResult);
+        System.out.println("FireStations saved !");
+    }
+}

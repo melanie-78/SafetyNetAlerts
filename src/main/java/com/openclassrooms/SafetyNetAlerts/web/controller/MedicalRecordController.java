@@ -2,7 +2,10 @@ package com.openclassrooms.SafetyNetAlerts.web.controller;
 
 import com.openclassrooms.SafetyNetAlerts.json.dto.MedicalRecordDto;
 import com.openclassrooms.SafetyNetAlerts.service.MedicalRecordService;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,24 +14,30 @@ import java.util.NoSuchElementException;
 @Slf4j
 @RestController
 @RequestMapping("/medicalRecord")
-public class MedicalRecordController {
-    private MedicalRecordService medicalRecordService;
+@NoArgsConstructor
+@AllArgsConstructor
 
-    public MedicalRecordController(MedicalRecordService medicalRecordService){
-        this.medicalRecordService = medicalRecordService;
-    }
+public class MedicalRecordController {
+    @Autowired
+    private MedicalRecordService medicalRecordService;
 
     @PostMapping("")
     public ResponseEntity<?> postMedicalRecord(@RequestBody MedicalRecordDto medicalRecordDto){
-        log.info("CREATE /medicalRecord");
-        medicalRecordService.saveMedicalRecord(medicalRecordDto);
-        return ResponseEntity.ok().build();
+        try{
+            log.info("CREATE /medicalRecord");
+            medicalRecordService.saveMedicalRecord(medicalRecordDto);
+            return ResponseEntity.ok().build();
+        }catch(IllegalArgumentException e){
+            log.info("CREATE /MedicalRecord error : {}",e.getMessage());
+            return ResponseEntity.notFound().build();
+        }
+
     }
 
     @DeleteMapping("")
     public  ResponseEntity<?> deleteMedicalRecord (@RequestParam ("firstName") String firstName, @RequestParam ("lastName") String lastName){
-        log.info ("DELETE /MedicalRecord with firstName {} and lastName {}", firstName, lastName);
         try {
+            log.info ("DELETE /MedicalRecord with firstName {} and lastName {}", firstName, lastName);
             medicalRecordService.deleteMedicalRecord(firstName, lastName);
             return ResponseEntity.ok().build();
         }catch (NoSuchElementException e){

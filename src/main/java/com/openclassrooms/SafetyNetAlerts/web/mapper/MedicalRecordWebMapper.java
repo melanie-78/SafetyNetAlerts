@@ -1,4 +1,4 @@
-package com.openclassrooms.SafetyNetAlerts.web;
+package com.openclassrooms.SafetyNetAlerts.web.mapper;
 
 import com.openclassrooms.SafetyNetAlerts.json.dto.MedicalRecordDto;
 import com.openclassrooms.SafetyNetAlerts.model.MedicalRecord;

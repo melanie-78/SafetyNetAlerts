@@ -6,7 +6,8 @@ import com.openclassrooms.SafetyNetAlerts.json.dto.PersonDto;
 import com.openclassrooms.SafetyNetAlerts.model.Address;
 import com.openclassrooms.SafetyNetAlerts.model.MedicalRecord;
 import com.openclassrooms.SafetyNetAlerts.model.Person;
-import com.openclassrooms.SafetyNetAlerts.web.PersonWebMapper;
+import com.openclassrooms.SafetyNetAlerts.web.dto.PersonUpdateDto;
+import com.openclassrooms.SafetyNetAlerts.web.mapper.PersonWebMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,6 +36,8 @@ public class PersonService {
     private AddressRepository addressRepository;
     @Autowired
     private PersonWebMapper personWebMapper;
+    @Autowired
+    private PersonUpdateDto personUpdateDto;
 
     public void saveAll(List<Person> personList){
         personRepository.saveAll(personList);
@@ -69,22 +72,28 @@ public class PersonService {
     }
 
     @Transactional
-    public void update(String firstName, String lastName, PersonDto personDto) {
+    public void update(String firstName, String lastName, PersonUpdateDto personUpdateDto) {
         Person person = personRepository.findByFirstNameAndLastName(firstName,lastName);
 
       if(person == null){
           throw new NoSuchElementException("There is no person called " + firstName + " " + lastName);
       }else{
-          person.setPhone(personDto.getPhone());
-          person.setEmail(personDto.getEmail());
+          person.setPhone(personUpdateDto.getPhone());
+          person.setEmail(personUpdateDto.getEmail());
 
-          Address byLabel = addressRepository.findByLabel(personDto.getAddress());
+          Address byLabel = addressRepository.findByLabel(personUpdateDto.getAddress());
           if(byLabel != null){
               person.setAddress(byLabel);
-          }else{
-              Address savedAddress = addressRepository.save(byLabel);
-              person.setAddress(savedAddress);
           }
+          Address savedAddress = new Address();
+
+          savedAddress.setLabel(personUpdateDto.getAddress());
+          savedAddress.setCity(personUpdateDto.getCity());
+          savedAddress.setZip(personUpdateDto.getZip());
+
+          addressRepository.save(savedAddress);
+          person.setAddress(savedAddress);
+
           personRepository.save(person);
       }
     }

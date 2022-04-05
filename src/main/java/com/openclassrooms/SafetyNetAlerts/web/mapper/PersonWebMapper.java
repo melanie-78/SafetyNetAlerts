@@ -1,4 +1,4 @@
-package com.openclassrooms.SafetyNetAlerts.web;
+package com.openclassrooms.SafetyNetAlerts.web.mapper;
 
 import com.openclassrooms.SafetyNetAlerts.json.dto.PersonDto;
 import com.openclassrooms.SafetyNetAlerts.model.Address;

@@ -5,7 +5,7 @@ import com.openclassrooms.SafetyNetAlerts.Repository.PersonRepository;
 import com.openclassrooms.SafetyNetAlerts.json.dto.MedicalRecordDto;
 import com.openclassrooms.SafetyNetAlerts.model.MedicalRecord;
 import com.openclassrooms.SafetyNetAlerts.model.Person;
-import com.openclassrooms.SafetyNetAlerts.web.MedicalRecordWebMapper;
+import com.openclassrooms.SafetyNetAlerts.web.mapper.MedicalRecordWebMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Data
 @Service
