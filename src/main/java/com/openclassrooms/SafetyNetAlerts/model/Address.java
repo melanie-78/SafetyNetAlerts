@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Data
@@ -21,6 +24,12 @@ public class Address {
     private String label;
     private String city;
     private String zip;
+
+    @OneToMany(mappedBy = "address")
+    private List<Person> persons;
+
+    @ManyToMany(mappedBy = "addresses")
+    private Collection<FireStation> fireStations = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

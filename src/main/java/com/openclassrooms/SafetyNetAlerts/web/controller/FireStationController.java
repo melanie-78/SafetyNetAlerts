@@ -4,7 +4,10 @@ package com.openclassrooms.SafetyNetAlerts.web.controller;
 import com.openclassrooms.SafetyNetAlerts.json.dto.FireStationDto;
 import com.openclassrooms.SafetyNetAlerts.service.FireStationService;
 import com.openclassrooms.SafetyNetAlerts.web.dto.FirestationUpdateDto;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,13 +16,13 @@ import java.util.NoSuchElementException;
 @Slf4j
 @RestController
 @RequestMapping("/firestation")
-public class FireStationController {
+@NoArgsConstructor
+@AllArgsConstructor
 
+public class FireStationController {
+    @Autowired
     private FireStationService fireStationService;
 
-    public FireStationController(FireStationService fireStationService) {
-        this.fireStationService = fireStationService;
-    }
 
     @PostMapping("")
     public ResponseEntity<?> saveFireStation(@RequestBody FireStationDto fireStationDto) {
