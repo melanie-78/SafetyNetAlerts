@@ -16,9 +16,7 @@ import java.util.Collection;
 public class MedicalRecord {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="medicalRecord_seq")
-    @SequenceGenerator(name = "medicalRecord_seq",sequenceName = "medicalRecord_seq_table")
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String birthdate;
     @ElementCollection
@@ -26,6 +24,6 @@ public class MedicalRecord {
     @ElementCollection
     private Collection<String> allergies;
 
-    @ManyToOne (cascade = CascadeType.ALL)
+    @ManyToOne
     private Person person;
 }

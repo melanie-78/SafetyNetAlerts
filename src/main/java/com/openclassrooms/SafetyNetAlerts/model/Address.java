@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Data
@@ -15,13 +18,18 @@ import java.util.Objects;
 
 public class Address {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="address_seq")
-    @SequenceGenerator(name = "address_seq",sequenceName = "address_seq_table")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique=true)
     private String label;
     private String city;
     private String zip;
+
+    @OneToMany(mappedBy = "address")
+    private List<Person> persons;
+
+    @ManyToMany(mappedBy = "addresses")
+    private Collection<FireStation> fireStations = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

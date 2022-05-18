@@ -3,8 +3,9 @@ package com.openclassrooms.SafetyNetAlerts.json.mapper;
 
 import com.openclassrooms.SafetyNetAlerts.json.dto.PersonDto;
 import com.openclassrooms.SafetyNetAlerts.model.Person;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class PersonMapper {
     /**
      * the objective of this method is to transform resource data into data stored in the H2
@@ -15,14 +16,14 @@ public class PersonMapper {
      * @return a person type saved in the H2
      */
 
-    public static Person toEntity(PersonDto personDto) {
+    public static Person toEntity(PersonDto personDto, AddressMapper addressMapper) {
         Person person = new Person();
 
         person.setFirstName(personDto.getFirstName());
         person.setLastName(personDto.getLastName());
         person.setPhone(personDto.getPhone());
         person.setEmail(personDto.getEmail());
-        person.setAddress(AddressMapper.toEntity(personDto));
+        person.setAddress(addressMapper.toEntity(personDto));
 
         return person;
     }

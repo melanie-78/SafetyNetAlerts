@@ -2,7 +2,9 @@ package com.openclassrooms.SafetyNetAlerts.json.mapper;
 
 import com.openclassrooms.SafetyNetAlerts.json.dto.PersonDto;
 import com.openclassrooms.SafetyNetAlerts.model.Address;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AddressMapper {
     /**
      *

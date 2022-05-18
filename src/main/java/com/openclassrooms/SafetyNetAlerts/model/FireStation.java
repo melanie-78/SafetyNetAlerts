@@ -16,12 +16,11 @@ import java.util.Collection;
 
 public class FireStation {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="fireStation_seq")
-    @SequenceGenerator(name = "fireStation_seq",sequenceName = "fireStation_seq_table")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
     private String station;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     private Collection<Address> addresses = new ArrayList<>();
 }
