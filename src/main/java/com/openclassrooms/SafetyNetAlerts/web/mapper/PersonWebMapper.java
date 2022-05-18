@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class PersonWebMapper {
-    public static PersonDto toDto(Person person){
+    public static PersonDto toDto(Person person) {
         PersonDto personDto = new PersonDto();
 
         personDto.setFirstName(person.getFirstName());
@@ -21,7 +21,7 @@ public class PersonWebMapper {
         return personDto;
     }
 
-    public Person toEntity(PersonDto personDto){
+    public Person toEntity(PersonDto personDto) {
         Person person = new Person();
 
         person.setFirstName(personDto.getFirstName());
@@ -38,8 +38,9 @@ public class PersonWebMapper {
 
         return person;
     }
+}
 
-    public void toEntityExceptFirstNameAndLastName(Person person, PersonDto personDto){
+  /*  public void toEntityExceptFirstNameAndLastName(Person person, PersonDto personDto){
 
         person.setPhone(personDto.getPhone());
         person.setEmail(personDto.getEmail());
@@ -50,7 +51,6 @@ public class PersonWebMapper {
         address.setZip(personDto.getZip());
 
         person.setAddress(address);
-    }
+    }*/
 
 
-}

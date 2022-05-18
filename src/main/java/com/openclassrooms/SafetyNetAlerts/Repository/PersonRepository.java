@@ -1,7 +1,6 @@
 package com.openclassrooms.SafetyNetAlerts.Repository;
 
 
-import com.openclassrooms.SafetyNetAlerts.model.Address;
 import com.openclassrooms.SafetyNetAlerts.model.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

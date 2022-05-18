@@ -18,9 +18,6 @@ import java.util.NoSuchElementException;
 @Slf4j
 @RestController
 @RequestMapping("/firestation")
-@NoArgsConstructor
-@AllArgsConstructor
-
 public class FireStationUrlsController {
     @Autowired
     private FireStationUrlsService fireStationUrlsService;

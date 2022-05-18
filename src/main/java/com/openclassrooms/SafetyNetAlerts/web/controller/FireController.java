@@ -18,10 +18,6 @@ import java.util.NoSuchElementException;
 @Slf4j
 @RestController
 @RequestMapping("/fire")
-@NoArgsConstructor
-@AllArgsConstructor
-
-
 public class FireController {
     @Autowired
     private FireService fireService;

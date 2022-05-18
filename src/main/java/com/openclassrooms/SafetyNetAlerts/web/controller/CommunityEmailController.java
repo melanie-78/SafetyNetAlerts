@@ -16,8 +16,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @Slf4j
-@NoArgsConstructor
-@AllArgsConstructor
 @RestController
 @RequestMapping("/communityemail")
 

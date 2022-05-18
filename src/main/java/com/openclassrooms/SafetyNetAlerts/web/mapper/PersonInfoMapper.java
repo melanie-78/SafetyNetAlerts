@@ -2,7 +2,9 @@ package com.openclassrooms.SafetyNetAlerts.web.mapper;
 
 import com.openclassrooms.SafetyNetAlerts.model.MedicalRecord;
 import com.openclassrooms.SafetyNetAlerts.model.Person;
+import com.openclassrooms.SafetyNetAlerts.web.CalculateAge;
 import com.openclassrooms.SafetyNetAlerts.web.dto.PersonInfoDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -15,6 +17,9 @@ import java.util.stream.Collectors;
 
 @Component
 public class PersonInfoMapper {
+    @Autowired
+    private CalculateAge calculateAge;
+
     public PersonInfoDto toDto (Person person){
         PersonInfoDto personInfoDto = new PersonInfoDto();
 
@@ -32,7 +37,7 @@ public class PersonInfoMapper {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
             LocalDate birthdate = LocalDate.parse(birthdateString, dateTimeFormatter);
 
-            int age = calculateAge(birthdate, LocalDate.now());
+            int age = calculateAge.calculateAge(birthdate, LocalDate.now());
             personInfoDto.setAge(age);
         }
 
@@ -51,9 +56,5 @@ public class PersonInfoMapper {
         personInfoDto.setAllergies(allergies);
 
         return personInfoDto;
-    }
-
-    public int calculateAge(LocalDate birthDate, LocalDate currentDate) {
-        return Period.between(birthDate, currentDate).getYears();
     }
 }

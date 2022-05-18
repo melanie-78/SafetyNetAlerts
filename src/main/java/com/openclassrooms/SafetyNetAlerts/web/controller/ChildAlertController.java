@@ -19,9 +19,6 @@ import java.util.NoSuchElementException;
 @Slf4j
 @RestController
 @RequestMapping("/childalert")
-@NoArgsConstructor
-@AllArgsConstructor
-
 public class ChildAlertController {
     @Autowired
     private ChildAlertService childAlertService;

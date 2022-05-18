@@ -18,19 +18,10 @@ import java.util.NoSuchElementException;
 @Slf4j
 @RestController
 @RequestMapping("/person")
-@NoArgsConstructor
-@AllArgsConstructor
-
 public class PersonController {
     @Autowired
     private PersonService personService;
-    @Autowired
-    private PersonUpdateDto personUpdateDto;
 
-    @GetMapping(value = "/all")
-    public List<PersonDto> getAllPersons(){
-        return this.personService.getAllPersons();
-     }
 
     @PutMapping("")
     public ResponseEntity<?> putPerson(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName, @RequestBody PersonUpdateDto personUpdateDto){

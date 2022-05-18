@@ -18,10 +18,6 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-
 public class FireStationUrlsService {
     @Autowired
     private FireStationRepository fireStationRepository;

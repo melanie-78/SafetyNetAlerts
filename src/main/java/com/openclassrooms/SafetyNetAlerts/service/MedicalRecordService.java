@@ -17,11 +17,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
-@Data
 @Service
-@NoArgsConstructor
-@AllArgsConstructor
-
 public class MedicalRecordService {
     @Autowired
     private MedicalRecordRepository medicalRecordRepository;
@@ -72,14 +68,15 @@ public class MedicalRecordService {
         }else {
             List<MedicalRecord> medicalRecords = byFirstNameAndLastName.getMedicalRecord();
             // medicalRecords changes from medicalRecordDto
-            List<MedicalRecord> medicalRecordList = medicalRecords.stream().map(medicalRecord -> {
-                medicalRecord.setBirthdate(medicalRecordDto.getBirthdate());
-                medicalRecord.setMedications(medicalRecordDto.getMedications());
-                medicalRecord.setAllergies(medicalRecordDto.getAllergies());
-                return medicalRecord;
-            }).collect(Collectors.toList());
-            medicalRecordRepository.saveAll(medicalRecordList);
-        }
+                List<MedicalRecord> medicalRecordList = medicalRecords.stream().map(medicalRecord -> {
+                    medicalRecord.setBirthdate(medicalRecordDto.getBirthdate());
+                    medicalRecord.setMedications(medicalRecordDto.getMedications());
+                    medicalRecord.setAllergies(medicalRecordDto.getAllergies());
+                    return medicalRecord;
+                }).collect(Collectors.toList());
+                medicalRecordRepository.saveAll(medicalRecordList);
+
+            }
     }
 }
 

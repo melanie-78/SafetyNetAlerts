@@ -16,12 +16,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @Slf4j
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @RestController
 @RequestMapping("/phonealert")
-
 public class PhoneAlertController {
     @Autowired
     private PhoneAlertService phoneAlertService;

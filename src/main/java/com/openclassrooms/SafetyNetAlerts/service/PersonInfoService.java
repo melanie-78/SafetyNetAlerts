@@ -16,9 +16,6 @@ import java.util.NoSuchElementException;
 
 
 @Service
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class PersonInfoService {
 
     @Autowired

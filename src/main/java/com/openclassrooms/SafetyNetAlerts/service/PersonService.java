@@ -3,6 +3,7 @@ package com.openclassrooms.SafetyNetAlerts.service;
 import com.openclassrooms.SafetyNetAlerts.Repository.AddressRepository;
 import com.openclassrooms.SafetyNetAlerts.Repository.PersonRepository;
 import com.openclassrooms.SafetyNetAlerts.json.dto.PersonDto;
+import com.openclassrooms.SafetyNetAlerts.json.mapper.PersonMapper;
 import com.openclassrooms.SafetyNetAlerts.model.Address;
 import com.openclassrooms.SafetyNetAlerts.model.MedicalRecord;
 import com.openclassrooms.SafetyNetAlerts.model.Person;
@@ -20,16 +21,12 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
-@Data
 @Service
-@NoArgsConstructor
-@AllArgsConstructor
-
 public class PersonService {
     @Autowired
     private PersonRepository personRepository;
     @Autowired
-    private com.openclassrooms.SafetyNetAlerts.json.mapper.PersonMapper personMapper;
+    private PersonMapper personMapper;
     @Autowired
     private MedicalRecordService medicalRecordService;
     @Autowired
@@ -48,13 +45,6 @@ public class PersonService {
     }
 
 
-    public List<PersonDto> getAllPersons(){
-     List<PersonDto> result = new ArrayList<>();
-     Iterable<Person> all = personRepository.findAll();
-     all.forEach(person -> result.add(PersonWebMapper.toDto(person)));
-     return result;
-    }
-
     @Transactional
     public void savePerson(PersonDto personDto) {
 
@@ -65,7 +55,12 @@ public class PersonService {
         if(byLabel != null){
             person.setAddress(byLabel);
         }else{
-            Address savedAddress = addressRepository.save(byLabel);
+            Address savedAddress = new Address();
+            savedAddress.setLabel(personDto.getAddress());
+            savedAddress.setCity(personDto.getCity());
+            savedAddress.setZip(personDto.getZip());
+
+            addressRepository.save(savedAddress );
             person.setAddress(savedAddress);
         }
      personRepository.save(person);

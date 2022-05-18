@@ -12,18 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Service
 public class CommunityEmailService {
     @Autowired
     private PersonRepository personRepository;
-    @Autowired
-    private AddressRepository addressRepository;
 
     public List<String> getCommunityEmail() {
 

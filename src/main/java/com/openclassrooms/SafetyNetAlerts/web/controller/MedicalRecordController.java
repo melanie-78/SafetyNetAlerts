@@ -14,9 +14,6 @@ import java.util.NoSuchElementException;
 @Slf4j
 @RestController
 @RequestMapping("/medicalRecord")
-@NoArgsConstructor
-@AllArgsConstructor
-
 public class MedicalRecordController {
     @Autowired
     private MedicalRecordService medicalRecordService;

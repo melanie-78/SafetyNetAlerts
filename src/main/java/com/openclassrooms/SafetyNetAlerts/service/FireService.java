@@ -17,11 +17,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
-@Data
 @Service
-@NoArgsConstructor
-@AllArgsConstructor
-
 public class FireService {
     @Autowired
     private AddressRepository addressRepository;

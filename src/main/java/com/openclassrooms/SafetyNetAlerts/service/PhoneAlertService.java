@@ -14,9 +14,6 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class PhoneAlertService {
 
     @Autowired

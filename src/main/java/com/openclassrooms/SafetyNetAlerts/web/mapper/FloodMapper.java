@@ -1,7 +1,10 @@
 package com.openclassrooms.SafetyNetAlerts.web.mapper;
 
 import com.openclassrooms.SafetyNetAlerts.model.Person;
+import com.openclassrooms.SafetyNetAlerts.web.CalculateAge;
 import com.openclassrooms.SafetyNetAlerts.web.dto.FloodPersonDto;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -13,6 +16,9 @@ import java.util.stream.Collectors;
 
 @Component
 public class FloodMapper {
+    @Autowired
+    private CalculateAge calculateAge;
+
     public FloodPersonDto toDto (Person person){
         FloodPersonDto floodPersonDto = new FloodPersonDto();
 
@@ -24,7 +30,7 @@ public class FloodMapper {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         LocalDate birthdate = LocalDate.parse(birthdateString, dateTimeFormatter);
 
-        int age = calculateAge(birthdate, LocalDate.now());
+        int age = calculateAge.calculateAge(birthdate, LocalDate.now());
         floodPersonDto.setAge(age);
 
         List<String> medications = person.getMedicalRecord().stream()
@@ -42,9 +48,5 @@ public class FloodMapper {
         floodPersonDto.setAllergies(allergies);
 
         return floodPersonDto;
-    }
-
-    public int calculateAge(LocalDate birthDate, LocalDate currentDate) {
-        return Period.between(birthDate, currentDate).getYears();
     }
 }

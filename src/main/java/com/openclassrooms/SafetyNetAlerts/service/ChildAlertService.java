@@ -17,10 +17,6 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-
 public class ChildAlertService {
 
     @Autowired
@@ -49,6 +45,7 @@ public class ChildAlertService {
             }else {
                 List<PersonAgeDto> adults = personAgeDtoList.stream()
                         .filter(personAgeDto -> personAgeDto.getAge() > 18).collect(Collectors.toList());
+
                 childAlertDto.setChildList(children);
                 childAlertDto.setAdultList(adults);
                 result.add(childAlertDto);
