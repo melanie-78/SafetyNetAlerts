@@ -22,6 +22,13 @@ public class PersonController {
     @Autowired
     private PersonService personService;
 
+    @PostMapping("")
+    public ResponseEntity<?> postPerson(@RequestBody PersonDto personDto){
+        log.info("CREATE /person");
+        personService.savePerson(personDto);
+        return ResponseEntity.ok().build();
+    }
+
 
     @PutMapping("")
     public ResponseEntity<?> putPerson(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName, @RequestBody PersonUpdateDto personUpdateDto){
@@ -30,17 +37,11 @@ public class PersonController {
             personService.update(firstName,lastName,personUpdateDto);
             return ResponseEntity.ok().build();
         } catch(NoSuchElementException e){
-            log.info("PUT /person with firstname {} and lastname {} error : {}", firstName, lastName, e.getMessage());
+            log.error("PUT /person with firstname {} and lastname {} error : {}", firstName, lastName, e.getMessage());
             return ResponseEntity.notFound().build();
         }
     }
 
-    @PostMapping("")
-    public ResponseEntity<?> postPerson(@RequestBody PersonDto personDto){
-        log.info("CREATE /person");
-        personService.savePerson(personDto);
-        return ResponseEntity.ok().build();
-    }
 
     @DeleteMapping("")
     public ResponseEntity<?> deletePerson(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
@@ -49,7 +50,7 @@ public class PersonController {
          personService.deletePerson(firstName, lastName);
          return ResponseEntity.ok().build();
      } catch (NoSuchElementException e) {
-         log.info("DELETE /person with firstname {} and lastname {} error : {}", firstName, lastName, e.getMessage());
+         log.error("DELETE /person with firstname {} and lastname {} error : {}", firstName, lastName, e.getMessage());
          return ResponseEntity.notFound().build();
      }
 

@@ -30,11 +30,11 @@ public class CommunityEmailControllerTest {
 
     @Test
     public void testGetCommunityEmail() throws Exception {
+        String city = "Culver";
         String email = "soph@email.com";
         List<String> list = Arrays.asList(email);
-        when(communityEmailService.getCommunityEmail()).thenReturn(list);
+        when(communityEmailService.getCommunityEmail(city)).thenReturn(list);
 
-        String city = "Culver";
         mockMvc.perform(get("/communityemail").param("city", city))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0]", is("soph@email.com")));

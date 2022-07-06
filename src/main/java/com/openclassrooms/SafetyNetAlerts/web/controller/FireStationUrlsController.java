@@ -29,7 +29,7 @@ public class FireStationUrlsController {
             List<FireStationUrlsDto> fireStationUrls = fireStationUrlsService.getFireStationUrls(station);
             return ResponseEntity.ok().body(fireStationUrls);
         }catch (NoSuchElementException e){
-            log.info("GET / firestationurls with station {} error: {} ", station, e.getMessage());
+            log.error("GET / firestationurls with station {} error: {} ", station, e.getMessage());
             return  ResponseEntity.notFound().build();
         }
     }

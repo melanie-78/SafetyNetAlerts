@@ -3,20 +3,15 @@ package com.openclassrooms.SafetyNetAlerts.service;
 import com.openclassrooms.SafetyNetAlerts.Repository.AddressRepository;
 import com.openclassrooms.SafetyNetAlerts.Repository.PersonRepository;
 import com.openclassrooms.SafetyNetAlerts.json.dto.PersonDto;
-import com.openclassrooms.SafetyNetAlerts.json.mapper.PersonMapper;
 import com.openclassrooms.SafetyNetAlerts.model.Address;
 import com.openclassrooms.SafetyNetAlerts.model.MedicalRecord;
 import com.openclassrooms.SafetyNetAlerts.model.Person;
 import com.openclassrooms.SafetyNetAlerts.web.dto.PersonUpdateDto;
 import com.openclassrooms.SafetyNetAlerts.web.mapper.PersonWebMapper;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -26,15 +21,11 @@ public class PersonService {
     @Autowired
     private PersonRepository personRepository;
     @Autowired
-    private PersonMapper personMapper;
-    @Autowired
     private MedicalRecordService medicalRecordService;
     @Autowired
     private AddressRepository addressRepository;
     @Autowired
     private PersonWebMapper personWebMapper;
-    @Autowired
-    private PersonUpdateDto personUpdateDto;
 
     public void saveAll(List<Person> personList){
         personRepository.saveAll(personList);

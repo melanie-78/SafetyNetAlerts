@@ -12,15 +12,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
 public class CommunityEmailService {
     @Autowired
     private PersonRepository personRepository;
+    @Autowired
+    private AddressRepository addressRepository;
 
-    public List<String> getCommunityEmail() {
+    public List<String> getCommunityEmail(String city) {
 
+        List<Address> byCity = addressRepository.findByCity(city);
+
+        if (byCity.size()==0){
+            throw new NoSuchElementException("this city doesn't exist in database");
+        }
         List<Person> allByAddress = personRepository.findAll();
         List<String> emailList = allByAddress.stream().map(person -> {
             String email = person.getEmail();

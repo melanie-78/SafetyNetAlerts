@@ -12,6 +12,7 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
     Person findByFirstNameAndLastName(String firstName, String lastName);
     boolean existsByFirstNameAndLastName(String firstName, String lastName);
     void deleteAllByFirstNameAndLastName(String firstName, String lastName);
-
     List<Person> findAllByFirstNameAndLastName(String firstName, String lastName);
+    //Use for PersonInfo's Urls
+    List<Person> findAllByLastName(String lastName);
 }

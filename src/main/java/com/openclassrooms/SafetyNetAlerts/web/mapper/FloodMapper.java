@@ -1,5 +1,6 @@
 package com.openclassrooms.SafetyNetAlerts.web.mapper;
 
+import com.openclassrooms.SafetyNetAlerts.model.MedicalRecord;
 import com.openclassrooms.SafetyNetAlerts.model.Person;
 import com.openclassrooms.SafetyNetAlerts.web.CalculateAge;
 import com.openclassrooms.SafetyNetAlerts.web.dto.FloodPersonDto;
@@ -12,6 +13,7 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -26,12 +28,15 @@ public class FloodMapper {
         floodPersonDto.setPhone(person.getPhone());
         floodPersonDto.setAddress(person.getAddress().getLabel());
 
-        String birthdateString = person.getMedicalRecord().stream().findFirst().get().getBirthdate();
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-        LocalDate birthdate = LocalDate.parse(birthdateString, dateTimeFormatter);
+        Optional<MedicalRecord> optional = person.getMedicalRecord().stream().findFirst();
+        if(optional.isPresent()) {
+            String birthdateString = optional.get().getBirthdate();
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+            LocalDate birthdate = LocalDate.parse(birthdateString, dateTimeFormatter);
 
-        int age = calculateAge.calculateAge(birthdate, LocalDate.now());
-        floodPersonDto.setAge(age);
+            int age = calculateAge.calculateAge(birthdate, LocalDate.now());
+            floodPersonDto.setAge(age);
+        }
 
         List<String> medications = person.getMedicalRecord().stream()
                 .map(medicalRecord -> medicalRecord.getMedications())
