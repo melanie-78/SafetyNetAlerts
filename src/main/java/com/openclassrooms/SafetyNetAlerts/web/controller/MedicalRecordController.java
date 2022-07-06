@@ -14,9 +14,6 @@ import java.util.NoSuchElementException;
 @Slf4j
 @RestController
 @RequestMapping("/medicalRecord")
-@NoArgsConstructor
-@AllArgsConstructor
-
 public class MedicalRecordController {
     @Autowired
     private MedicalRecordService medicalRecordService;
@@ -28,7 +25,7 @@ public class MedicalRecordController {
             medicalRecordService.saveMedicalRecord(medicalRecordDto);
             return ResponseEntity.ok().build();
         }catch(IllegalArgumentException e){
-            log.info("CREATE /MedicalRecord error : {}",e.getMessage());
+            log.error("CREATE /MedicalRecord error : {}",e.getMessage());
             return ResponseEntity.notFound().build();
         }
 
@@ -41,7 +38,7 @@ public class MedicalRecordController {
             medicalRecordService.deleteMedicalRecord(firstName, lastName);
             return ResponseEntity.ok().build();
         }catch (NoSuchElementException e){
-            log.info("DELETE /MedicalRecord with firstname {} and lastname {} error : {}", firstName, lastName, e.getMessage());
+            log.error("DELETE /MedicalRecord with firstname {} and lastname {} error : {}", firstName, lastName, e.getMessage());
             return ResponseEntity.notFound().build();
         }
     }
@@ -54,7 +51,7 @@ public class MedicalRecordController {
             return ResponseEntity.ok().build();
 
         }catch (NoSuchElementException e){
-            log.info("UPDATE /MedicalRecord with firstName{} and lastName{} error : {}", firstName, lastName, e.getMessage());
+            log.error("UPDATE /MedicalRecord with firstName{} and lastName{} error : {}", firstName, lastName, e.getMessage());
             return ResponseEntity.notFound().build();
         }
     }

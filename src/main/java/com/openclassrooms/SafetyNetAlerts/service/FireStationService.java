@@ -5,7 +5,7 @@ import com.openclassrooms.SafetyNetAlerts.Repository.FireStationRepository;
 import com.openclassrooms.SafetyNetAlerts.json.dto.FireStationDto;
 import com.openclassrooms.SafetyNetAlerts.model.Address;
 import com.openclassrooms.SafetyNetAlerts.model.FireStation;
-import com.openclassrooms.SafetyNetAlerts.web.dto.FirestationUpdateDto;
+import com.openclassrooms.SafetyNetAlerts.web.dto.FireStationUpdateDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,10 +17,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-@Data
 @Service
-@NoArgsConstructor
-@AllArgsConstructor
 public class FireStationService {
     @Autowired
     private FireStationRepository fireStationRepository;
@@ -70,7 +67,7 @@ public class FireStationService {
 
     }
 
-    public void updateFireStation(FirestationUpdateDto fireStationUpdateDto) {
+    public void updateFireStation(FireStationUpdateDto fireStationUpdateDto) {
 
         FireStation fireStation = fireStationRepository.findByStation(fireStationUpdateDto.getStation());
         Address byLabel= addressRepository.findByLabel(fireStationUpdateDto.getAddress());

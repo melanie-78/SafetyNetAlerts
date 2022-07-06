@@ -17,11 +17,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
-@Data
 @Service
-@NoArgsConstructor
-@AllArgsConstructor
-
 public class FireService {
     @Autowired
     private AddressRepository addressRepository;
@@ -37,15 +33,16 @@ public class FireService {
         if(byLabel==null){
             throw new NoSuchElementException("this address does'nt exist in H2 dataBase");
         }else{
-            List<String> stationList = byLabel.getFireStations().stream()
-                    .map(fireStation -> fireStation.getStation()).collect(Collectors.toList());
+            List<String> stationList = byLabel.getFireStations()
+                    .stream()
+                    .map(fireStation -> fireStation.getStation())
+                    .collect(Collectors.toList());
             fireDto.setStations(stationList);
 
-
-            List<Person> persons = byLabel.getPersons();
-            List<FireUrlsDto> fireUrlsDtoList = persons.stream()
-                    .map(person -> fireUrlsMapper.toDto(person)).collect(Collectors.toList());
-
+            List<FireUrlsDto> fireUrlsDtoList = byLabel.getPersons()
+                    .stream()
+                    .map(person -> fireUrlsMapper.toDto(person))
+                    .collect(Collectors.toList());
             fireDto.setFireUrlsDtoList(fireUrlsDtoList);
 
             result.add(fireDto);

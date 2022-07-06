@@ -18,10 +18,6 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-
 public class FireStationUrlsService {
     @Autowired
     private FireStationRepository fireStationRepository;
@@ -39,23 +35,27 @@ public class FireStationUrlsService {
             throw new NoSuchElementException("This station does'nt exist in H2 dataBase");
         }
 
-        List<Person> persons = fireStationRepository.findByStation(station)
+        List<Person> persons = byStation
                 .getAddresses()
                 .stream()
                 .map(address -> address.getPersons())
                 .flatMap(personList -> personList.stream())
                 .collect(Collectors.toList());
 
-        List<FireStationUrlsInfosDto> fireStationUrlsInfosDtoList = persons.stream()
-                .map(person -> fireStationUrlsMapper.toDto(person)).collect(Collectors.toList());
-
+        List<FireStationUrlsInfosDto> fireStationUrlsInfosDtoList = persons
+                .stream()
+                .map(person -> fireStationUrlsMapper.toDto(person))
+                .collect(Collectors.toList());
         fireStationUrlsDto.setFireStationUrlsInfosList(fireStationUrlsInfosDtoList);
 
-        int childrenNumber = fireStationUrlsInfosDtoList.stream()
-                .filter(fireStationUrlsBisDto -> fireStationUrlsBisDto.getAge() <= 18).collect(Collectors.toList())
+        int childrenNumber = fireStationUrlsInfosDtoList
+                .stream()
+                .filter(fireStationUrlsBisDto -> fireStationUrlsBisDto.getAge() <= 18)
+                .collect(Collectors.toList())
                 .size();
         int adultsNumber = fireStationUrlsInfosDtoList.stream()
-                .filter(fireStationUrlsBisDto -> fireStationUrlsBisDto.getAge() > 18).collect(Collectors.toList())
+                .filter(fireStationUrlsBisDto -> fireStationUrlsBisDto.getAge() > 18)
+                .collect(Collectors.toList())
                 .size();
         fireStationUrlsDto.setChildrenNumber(childrenNumber);
         fireStationUrlsDto.setAdultsNumber(adultsNumber);

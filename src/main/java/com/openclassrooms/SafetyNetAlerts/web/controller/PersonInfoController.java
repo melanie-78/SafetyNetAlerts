@@ -19,9 +19,6 @@ import java.util.NoSuchElementException;
 @Slf4j
 @RestController
 @RequestMapping("/personinfo")
-@NoArgsConstructor
-@AllArgsConstructor
-
 public class PersonInfoController {
     @Autowired
     private PersonInfoService personInfoService;
@@ -33,7 +30,7 @@ public class PersonInfoController {
             List<PersonInfoDto> personInfo = personInfoService.getPersonInfo(lastName);
             return ResponseEntity.ok(personInfo);
         }catch (NoSuchElementException e){
-            log.info("GET /personInfo with lastName {} error : {} ", lastName, e.getMessage());
+            log.error("GET /personInfo with lastName {} error : {} ", lastName, e.getMessage());
             return ResponseEntity.notFound().build();
         }
 

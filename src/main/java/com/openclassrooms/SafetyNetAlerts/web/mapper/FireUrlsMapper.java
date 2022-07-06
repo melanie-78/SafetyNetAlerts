@@ -2,20 +2,23 @@ package com.openclassrooms.SafetyNetAlerts.web.mapper;
 
 import com.openclassrooms.SafetyNetAlerts.model.MedicalRecord;
 import com.openclassrooms.SafetyNetAlerts.model.Person;
+import com.openclassrooms.SafetyNetAlerts.web.CalculateAge;
 import com.openclassrooms.SafetyNetAlerts.web.dto.FireUrlsDto;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Data
 @Component
-public class FireUrlsMapper {
+public class FireUrlsMapper{
+   @Autowired
+   private CalculateAge calculateAge;
+
     public FireUrlsDto toDto(Person person){
 
         FireUrlsDto fireUrlsDto = new FireUrlsDto();
@@ -31,7 +34,7 @@ public class FireUrlsMapper {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
             LocalDate birthdate = LocalDate.parse(birthdateString, dateTimeFormatter);
 
-            int age = calculateAge(birthdate, LocalDate.now());
+            int age = calculateAge.calculateAge(birthdate, LocalDate.now());
 
             fireUrlsDto.setAge(age);
 
@@ -42,9 +45,5 @@ public class FireUrlsMapper {
         fireUrlsDto.setMedications(medications);
 
         return fireUrlsDto;
-    }
-
-    public int calculateAge(LocalDate birthDate, LocalDate currentDate) {
-        return Period.between(birthDate, currentDate).getYears();
     }
 }

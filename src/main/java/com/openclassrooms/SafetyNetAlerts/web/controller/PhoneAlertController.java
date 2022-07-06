@@ -16,12 +16,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @Slf4j
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @RestController
 @RequestMapping("/phonealert")
-
 public class PhoneAlertController {
     @Autowired
     private PhoneAlertService phoneAlertService;
@@ -33,7 +29,7 @@ public class PhoneAlertController {
             List<String> phoneAlert = phoneAlertService.getPhoneAlert(station);
             return ResponseEntity.ok(phoneAlert);
         }catch (NoSuchElementException e){
-            log.info("GET /PhoneAlert with station {} error : {} ", station, e.getMessage());
+            log.error("GET /PhoneAlert with station {} error : {} ", station, e.getMessage());
             return ResponseEntity.notFound().build();
         }
     }

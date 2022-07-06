@@ -18,31 +18,9 @@ import java.util.NoSuchElementException;
 @Slf4j
 @RestController
 @RequestMapping("/person")
-@NoArgsConstructor
-@AllArgsConstructor
-
 public class PersonController {
     @Autowired
     private PersonService personService;
-    @Autowired
-    private PersonUpdateDto personUpdateDto;
-
-    @GetMapping(value = "/all")
-    public List<PersonDto> getAllPersons(){
-        return this.personService.getAllPersons();
-     }
-
-    @PutMapping("")
-    public ResponseEntity<?> putPerson(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName, @RequestBody PersonUpdateDto personUpdateDto){
-        log.info("PUT /person with firstname {} and lastname {}", firstName, lastName);
-        try {
-            personService.update(firstName,lastName,personUpdateDto);
-            return ResponseEntity.ok().build();
-        } catch(NoSuchElementException e){
-            log.info("PUT /person with firstname {} and lastname {} error : {}", firstName, lastName, e.getMessage());
-            return ResponseEntity.notFound().build();
-        }
-    }
 
     @PostMapping("")
     public ResponseEntity<?> postPerson(@RequestBody PersonDto personDto){
@@ -51,6 +29,20 @@ public class PersonController {
         return ResponseEntity.ok().build();
     }
 
+
+    @PutMapping("")
+    public ResponseEntity<?> putPerson(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName, @RequestBody PersonUpdateDto personUpdateDto){
+        log.info("PUT /person with firstname {} and lastname {}", firstName, lastName);
+        try {
+            personService.update(firstName,lastName,personUpdateDto);
+            return ResponseEntity.ok().build();
+        } catch(NoSuchElementException e){
+            log.error("PUT /person with firstname {} and lastname {} error : {}", firstName, lastName, e.getMessage());
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
     @DeleteMapping("")
     public ResponseEntity<?> deletePerson(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
         log.info("DELETE /person with firstname {} and lastname {}", firstName, lastName);
@@ -58,7 +50,7 @@ public class PersonController {
          personService.deletePerson(firstName, lastName);
          return ResponseEntity.ok().build();
      } catch (NoSuchElementException e) {
-         log.info("DELETE /person with firstname {} and lastname {} error : {}", firstName, lastName, e.getMessage());
+         log.error("DELETE /person with firstname {} and lastname {} error : {}", firstName, lastName, e.getMessage());
          return ResponseEntity.notFound().build();
      }
 

@@ -8,36 +8,24 @@ import com.openclassrooms.SafetyNetAlerts.model.MedicalRecord;
 import com.openclassrooms.SafetyNetAlerts.model.Person;
 import com.openclassrooms.SafetyNetAlerts.web.dto.PersonUpdateDto;
 import com.openclassrooms.SafetyNetAlerts.web.mapper.PersonWebMapper;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
-@Data
 @Service
-@NoArgsConstructor
-@AllArgsConstructor
-
 public class PersonService {
     @Autowired
     private PersonRepository personRepository;
-    @Autowired
-    private com.openclassrooms.SafetyNetAlerts.json.mapper.PersonMapper personMapper;
     @Autowired
     private MedicalRecordService medicalRecordService;
     @Autowired
     private AddressRepository addressRepository;
     @Autowired
     private PersonWebMapper personWebMapper;
-    @Autowired
-    private PersonUpdateDto personUpdateDto;
 
     public void saveAll(List<Person> personList){
         personRepository.saveAll(personList);
@@ -47,13 +35,6 @@ public class PersonService {
         return this.personRepository.findByFirstNameAndLastName(firstName, lastName);
     }
 
-
-    public List<PersonDto> getAllPersons(){
-     List<PersonDto> result = new ArrayList<>();
-     Iterable<Person> all = personRepository.findAll();
-     all.forEach(person -> result.add(PersonWebMapper.toDto(person)));
-     return result;
-    }
 
     @Transactional
     public void savePerson(PersonDto personDto) {
@@ -65,7 +46,12 @@ public class PersonService {
         if(byLabel != null){
             person.setAddress(byLabel);
         }else{
-            Address savedAddress = addressRepository.save(byLabel);
+            Address savedAddress = new Address();
+            savedAddress.setLabel(personDto.getAddress());
+            savedAddress.setCity(personDto.getCity());
+            savedAddress.setZip(personDto.getZip());
+
+            addressRepository.save(savedAddress );
             person.setAddress(savedAddress);
         }
      personRepository.save(person);

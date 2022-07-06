@@ -19,9 +19,6 @@ import java.util.NoSuchElementException;
 @Slf4j
 @RestController
 @RequestMapping("/childalert")
-@NoArgsConstructor
-@AllArgsConstructor
-
 public class ChildAlertController {
     @Autowired
     private ChildAlertService childAlertService;
@@ -34,7 +31,7 @@ public class ChildAlertController {
             return ResponseEntity.ok().body(childAlert);
 
         }catch (NoSuchElementException e){
-            log.info("GET /childalert with address {} error :{}" , address, e.getMessage());
+            log.error("GET /childalert with address {} error :{}" , address, e.getMessage());
             return ResponseEntity.notFound().build();
         }
     }

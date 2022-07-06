@@ -8,9 +8,6 @@ import com.openclassrooms.SafetyNetAlerts.model.Person;
 import com.openclassrooms.SafetyNetAlerts.web.dto.FloodDto;
 import com.openclassrooms.SafetyNetAlerts.web.dto.FloodPersonDto;
 import com.openclassrooms.SafetyNetAlerts.web.mapper.FloodMapper;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,30 +17,33 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.groupingBy;
 
 @Service
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-
 public class FloodService {
     @Autowired
     private FireStationRepository fireStationRepository;
-    @Autowired
-    private FloodDto floodDto;
+
     @Autowired
     private FloodMapper floodMapper;
 
-    public List<FloodDto> getFlood(String station) {
+    public List<FloodDto> getFlood(List<Integer> stations) {
+        FloodDto floodDto = new FloodDto();
+
         List<FloodDto> result = new ArrayList<>();
 
-        FireStation byStation = fireStationRepository.findByStation(station);
+        List<FireStation> byStation = fireStationRepository.findByStationIn(stations.stream()
+                .map(String::valueOf)
+                .collect(Collectors.toList()));
 
-        if(byStation == null){
-            throw new NoSuchElementException("this station does'nt exist");
+        if(byStation.size() == 0){
+            throw new NoSuchElementException("these stations don't exist in H2 database");
         }
-        Collection<Address> addresses = byStation.getAddresses();
-        ArrayList<Address> addressList = new ArrayList<>(addresses);
 
-        List<Person> persons = addressList.stream().map(address -> address.getPersons())
+        List<Address> addressList= byStation.stream()
+                .map(fireStation -> fireStation.getAddresses())
+                .flatMap(addressCollection -> addressCollection.stream())
+                .collect(Collectors.toList());
+
+        List<Person> persons = addressList.stream()
+                .map(address -> address.getPersons())
                 .flatMap(personList -> personList.stream())
                 .collect(Collectors.toList());
 

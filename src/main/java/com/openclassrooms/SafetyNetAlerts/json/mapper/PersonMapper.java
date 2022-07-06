@@ -16,7 +16,7 @@ public class PersonMapper {
      * @return a person type saved in the H2
      */
 
-    public Person toEntity(PersonDto personDto, AddressMapper addressMapper) {
+    public static Person toEntity(PersonDto personDto, AddressMapper addressMapper) {
         Person person = new Person();
 
         person.setFirstName(personDto.getFirstName());

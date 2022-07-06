@@ -50,6 +50,10 @@ public class ExtractionRunner implements CommandLineRunner{
     @Transactional
     public void run(String... args) throws Exception {
         //read json and write to H2 db
+        extractJsonData();
+    }
+
+    public void extractJsonData() {
         ObjectMapper mapper = new ObjectMapper();
         TypeReference<DataWrapper> typeReference = new TypeReference<DataWrapper>() {
         };
@@ -84,7 +88,7 @@ public class ExtractionRunner implements CommandLineRunner{
     public void extractMedicalRecords(DataWrapper dataWrapper){
         //Save medicalRecords
         List<MedicalRecord> medicalRecordList = dataWrapper.getMedicalRecords()
-                .stream().map(medicalRecordDto -> medicalRecordMapper.toEntity(medicalRecordDto,personService))
+                .stream().map(medicalRecordDto -> medicalRecordMapper.toEntity(medicalRecordDto))
                 .collect(Collectors.toList());
         medicalRecordService.saveAll(medicalRecordList);
         System.out.println("MedicalRecords saved !");
