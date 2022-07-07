@@ -35,7 +35,7 @@ public class FireStationController {
             fireStationService.deleteFireStation(fireStationDto);
             return ResponseEntity.ok().build();
         }catch(NoSuchElementException e){
-            log.info("DELETE /firestation error : {}", e.getMessage());
+            log.error("DELETE /firestation error : {}", e.getMessage());
             return ResponseEntity.notFound().build();
         }
     }
@@ -47,7 +47,7 @@ public class FireStationController {
             fireStationService.updateFireStation(firestationUpdateDto);
             return ResponseEntity.ok().build();
         } catch (NoSuchElementException e) {
-            log.info("UPDATE /firestation with address {} error : {}", firestationUpdateDto.getAddress(), e.getMessage());
+            log.error("UPDATE /firestation with address {} error : {}", firestationUpdateDto.getAddress(), e.getMessage());
             return ResponseEntity.notFound().build();
         }
     }

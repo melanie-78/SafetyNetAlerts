@@ -1,6 +1,6 @@
 package com.openclassrooms.SafetyNetAlerts.service;
 
-import com.openclassrooms.SafetyNetAlerts.Repository.FloodRepository;
+import com.openclassrooms.SafetyNetAlerts.Repository.FireStationRepository;
 import com.openclassrooms.SafetyNetAlerts.model.Address;
 import com.openclassrooms.SafetyNetAlerts.model.FireStation;
 import com.openclassrooms.SafetyNetAlerts.model.MedicalRecord;
@@ -32,13 +32,13 @@ public class FloodServiceTest {
     FloodMapper floodMapper;
 
     @Mock
-    FloodRepository floodRepository;
+    FireStationRepository fireStationRepository;
 
     @Test
     public void getFloodThrowsExceptionTest(){
         // Given : on veut le flood sur une liste de station qui n'existe pas
         List<Integer> stations = Collections.singletonList(1);
-        when(floodRepository.findByStationIn(any())).thenReturn(new ArrayList<>());
+        when(fireStationRepository.findByStationIn(any())).thenReturn(new ArrayList<>());
 
         // When : On appelle getFlood
         // Then : Une NoSuchElementException est levée
@@ -75,7 +75,7 @@ public class FloodServiceTest {
         f.setAddresses(Arrays.asList(address));
         List<FireStation> fList = Arrays.asList(f);
 
-        when(floodRepository.findByStationIn(stationsList)).thenReturn(fList);
+        when(fireStationRepository.findByStationIn(stationsList)).thenReturn(fList);
         when(floodMapper.toDto(p)).thenReturn(floodPersonDto);
 
 

@@ -29,7 +29,7 @@ public class PhoneAlertController {
             List<String> phoneAlert = phoneAlertService.getPhoneAlert(station);
             return ResponseEntity.ok(phoneAlert);
         }catch (NoSuchElementException e){
-            log.info("GET /PhoneAlert with station {} error : {} ", station, e.getMessage());
+            log.error("GET /PhoneAlert with station {} error : {} ", station, e.getMessage());
             return ResponseEntity.notFound().build();
         }
     }

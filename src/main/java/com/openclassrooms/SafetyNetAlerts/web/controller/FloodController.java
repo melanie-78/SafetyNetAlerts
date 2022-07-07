@@ -27,7 +27,7 @@ public class FloodController {
             log.info("GET /flood with station {}", stations);
             return this.floodService.getFlood(stations);
         }catch (NoSuchElementException e){
-            log.info("GET /flood with station {} error : {} ", stations, e.getMessage());
+            log.error("GET /flood with station {} error : {} ", stations, e.getMessage());
             return null;
         }
     }

@@ -1,6 +1,5 @@
 package com.openclassrooms.SafetyNetAlerts.web;
 
-import lombok.Data;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;

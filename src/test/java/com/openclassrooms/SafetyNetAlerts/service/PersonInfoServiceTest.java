@@ -1,6 +1,6 @@
 package com.openclassrooms.SafetyNetAlerts.service;
 
-import com.openclassrooms.SafetyNetAlerts.Repository.PersonInfoRepository;
+import com.openclassrooms.SafetyNetAlerts.Repository.PersonRepository;
 import com.openclassrooms.SafetyNetAlerts.model.Address;
 import com.openclassrooms.SafetyNetAlerts.model.MedicalRecord;
 import com.openclassrooms.SafetyNetAlerts.model.Person;
@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
@@ -20,7 +19,6 @@ import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -31,14 +29,14 @@ public class PersonInfoServiceTest {
     @Mock
     PersonInfoMapper personInfoMapper;
     @Mock
-    PersonInfoRepository personInfoRepository;
+    PersonRepository personRepository;
 
     @Test
     public void getPersonInfoThrowsExceptionTest(){
         String lastName = "Boyd";
         List<Person> pList = new ArrayList<>();
 
-        when(personInfoRepository.findAllByLastName("Boyd")).thenReturn(pList);
+        when(personRepository.findAllByLastName("Boyd")).thenReturn(pList);
 
         assertThrows(NoSuchElementException.class, ()->personInfoService.getPersonInfo(lastName));
     }
@@ -57,7 +55,7 @@ public class PersonInfoServiceTest {
 
         PersonInfoDto personInfoDto = new PersonInfoDto("Cadigan","Eric","951 LoneTree Rd","gramps@email.com",76, Arrays.asList("tradoxidine:400mg"), new ArrayList());
         List<PersonInfoDto> expected = Arrays.asList(personInfoDto);
-        when(personInfoRepository.findAllByLastName(lastName)).thenReturn(pList);
+        when(personRepository.findAllByLastName(lastName)).thenReturn(pList);
         when(personInfoMapper.toDto(p)).thenReturn(personInfoDto);
 
         List<PersonInfoDto> actual = personInfoService.getPersonInfo(lastName);

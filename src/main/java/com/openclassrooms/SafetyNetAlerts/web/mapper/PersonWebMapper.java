@@ -40,17 +40,4 @@ public class PersonWebMapper {
     }
 }
 
-  /*  public void toEntityExceptFirstNameAndLastName(Person person, PersonDto personDto){
-
-        person.setPhone(personDto.getPhone());
-        person.setEmail(personDto.getEmail());
-
-        Address address = new Address();
-        address.setLabel(personDto.getAddress());
-        address.setCity(personDto.getCity());
-        address.setZip(personDto.getZip());
-
-        person.setAddress(address);
-    }*/
-
 
