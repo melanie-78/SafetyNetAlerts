@@ -29,7 +29,7 @@ public class FireController {
             List<FireDto> fire = fireService.getFire(address);
             return ResponseEntity.ok().body(fire);
         }catch (NoSuchElementException e){
-            log.info("GET /fire with address {} error : {}", address, e.getMessage());
+            log.error("GET /fire with address {} error : {}", address, e.getMessage());
             return ResponseEntity.notFound().build();
         }
     }

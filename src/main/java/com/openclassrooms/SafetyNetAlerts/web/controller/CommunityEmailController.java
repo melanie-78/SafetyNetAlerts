@@ -1,5 +1,6 @@
 package com.openclassrooms.SafetyNetAlerts.web.controller;
 
+import com.openclassrooms.SafetyNetAlerts.Repository.AddressRepository;
 import com.openclassrooms.SafetyNetAlerts.service.CommunityEmailService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -27,10 +28,10 @@ public class CommunityEmailController {
     public ResponseEntity<List<String>> getCommunityEmail(@RequestParam("city") String city){
         try{
             log.info("GET /communityEmail with city {} ", city);
-            List<String> communityEmail = communityEmailService.getCommunityEmail();
+            List<String> communityEmail = communityEmailService.getCommunityEmail(city);
             return ResponseEntity.ok(communityEmail);
         }catch(NoSuchElementException e){
-            log.info("GET /communityEmail with city {} error: ", city, e.getMessage());
+            log.error("GET /communityEmail with city {} error: ", city, e.getMessage());
             return ResponseEntity.notFound().build();
         }
     }
