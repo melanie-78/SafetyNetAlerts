@@ -1,10 +1,7 @@
 package com.openclassrooms.SafetyNetAlerts.web.controller;
 
-import com.openclassrooms.SafetyNetAlerts.service.ChildAlertService;
+import com.openclassrooms.SafetyNetAlerts.service.ImplChildAlertService;
 import com.openclassrooms.SafetyNetAlerts.web.dto.ChildAlertDto;
-import com.openclassrooms.SafetyNetAlerts.web.dto.PersonAgeDto;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +18,7 @@ import java.util.NoSuchElementException;
 @RequestMapping("/childalert")
 public class ChildAlertController {
     @Autowired
-    private ChildAlertService childAlertService;
+    private ImplChildAlertService childAlertService;
 
     @GetMapping("")
     public ResponseEntity<List<ChildAlertDto>> getChildAlert(@RequestParam("address") String address){

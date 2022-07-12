@@ -4,7 +4,7 @@ package com.openclassrooms.SafetyNetAlerts.controller;
 import com.openclassrooms.SafetyNetAlerts.model.Address;
 import com.openclassrooms.SafetyNetAlerts.model.MedicalRecord;
 import com.openclassrooms.SafetyNetAlerts.model.Person;
-import com.openclassrooms.SafetyNetAlerts.service.PersonInfoService;
+import com.openclassrooms.SafetyNetAlerts.service.ImplPersonInfoService;
 import com.openclassrooms.SafetyNetAlerts.web.dto.PersonInfoDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class PersonInfoControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    PersonInfoService personInfoService;
+    ImplPersonInfoService personInfoService;
 
     @Test
     public void testGetPersonInfo() throws Exception{

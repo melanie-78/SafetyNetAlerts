@@ -4,7 +4,7 @@ import com.openclassrooms.SafetyNetAlerts.model.Address;
 import com.openclassrooms.SafetyNetAlerts.model.FireStation;
 import com.openclassrooms.SafetyNetAlerts.model.MedicalRecord;
 import com.openclassrooms.SafetyNetAlerts.model.Person;
-import com.openclassrooms.SafetyNetAlerts.service.FireStationUrlsService;
+import com.openclassrooms.SafetyNetAlerts.service.ImplFireStationUrlsService;
 import com.openclassrooms.SafetyNetAlerts.web.dto.FireStationUrlsDto;
 import com.openclassrooms.SafetyNetAlerts.web.dto.FireStationUrlsInfosDto;
 import org.junit.jupiter.api.Test;
@@ -30,7 +30,7 @@ public class FireStationUrlsControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    FireStationUrlsService fireStationUrlsService;
+    ImplFireStationUrlsService fireStationUrlsService;
 
     @Test
     public void testGetFireStationUrls() throws Exception{

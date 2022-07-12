@@ -4,7 +4,7 @@ package com.openclassrooms.SafetyNetAlerts.controller;
 import com.openclassrooms.SafetyNetAlerts.model.Address;
 import com.openclassrooms.SafetyNetAlerts.model.FireStation;
 import com.openclassrooms.SafetyNetAlerts.model.Person;
-import com.openclassrooms.SafetyNetAlerts.service.FireService;
+import com.openclassrooms.SafetyNetAlerts.service.ImplFireService;
 import com.openclassrooms.SafetyNetAlerts.web.dto.FireDto;
 import com.openclassrooms.SafetyNetAlerts.web.dto.FireUrlsDto;
 import org.junit.jupiter.api.Test;
@@ -32,7 +32,7 @@ public class FireControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    FireService fireService;
+    ImplFireService fireService;
 
     @Test
     public void testGetFire() throws Exception{

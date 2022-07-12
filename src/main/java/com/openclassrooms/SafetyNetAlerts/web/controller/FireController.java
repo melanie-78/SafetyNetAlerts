@@ -1,9 +1,7 @@
 package com.openclassrooms.SafetyNetAlerts.web.controller;
 
-import com.openclassrooms.SafetyNetAlerts.service.FireService;
+import com.openclassrooms.SafetyNetAlerts.service.ImplFireService;
 import com.openclassrooms.SafetyNetAlerts.web.dto.FireDto;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +18,7 @@ import java.util.NoSuchElementException;
 @RequestMapping("/fire")
 public class FireController {
     @Autowired
-    private FireService fireService;
+    private ImplFireService fireService;
 
     @GetMapping("")
     public ResponseEntity<List<FireDto>> getFire(@RequestParam("address") String address){

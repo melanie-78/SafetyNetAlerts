@@ -1,6 +1,6 @@
 package com.openclassrooms.SafetyNetAlerts.controller;
 
-import com.openclassrooms.SafetyNetAlerts.service.CommunityEmailService;
+import com.openclassrooms.SafetyNetAlerts.service.ImplCommunityEmailService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -11,7 +11,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.hamcrest.CoreMatchers.is;
@@ -26,7 +25,7 @@ public class CommunityEmailControllerTest {
     public MockMvc mockMvc;
 
     @MockBean
-    CommunityEmailService communityEmailService;
+    ImplCommunityEmailService communityEmailService;
 
     @Test
     public void testGetCommunityEmail() throws Exception {

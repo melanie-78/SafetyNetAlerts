@@ -29,7 +29,7 @@ import static org.mockito.Mockito.when;
 
 public class FireStationUrlsServiceTest {
     @InjectMocks
-    private FireStationUrlsService fireStationUrlsService;
+    private ImplFireStationUrlsService fireStationUrlsService;
 
     @Mock
     FireStationRepository fireStationRepository;

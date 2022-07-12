@@ -26,7 +26,7 @@ import static org.mockito.Mockito.when;
 
 public class FloodServiceTest {
     @InjectMocks
-    private FloodService floodService;
+    private ImplFloodService floodService;
 
     @Mock
     FloodMapper floodMapper;

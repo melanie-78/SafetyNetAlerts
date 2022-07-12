@@ -24,7 +24,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class PersonInfoServiceTest {
     @InjectMocks
-    private PersonInfoService personInfoService;
+    private ImplPersonInfoService personInfoService;
 
     @Mock
     PersonInfoMapper personInfoMapper;

@@ -14,7 +14,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class )
 public class AddressServiceTest {
     @InjectMocks
-    private AddressService addressService;
+    private ImplAddressService addressService;
 
     @Mock
     AddressRepository addressRepository;

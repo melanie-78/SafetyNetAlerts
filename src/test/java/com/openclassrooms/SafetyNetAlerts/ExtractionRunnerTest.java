@@ -13,10 +13,10 @@ import com.openclassrooms.SafetyNetAlerts.model.Address;
 import com.openclassrooms.SafetyNetAlerts.model.FireStation;
 import com.openclassrooms.SafetyNetAlerts.model.MedicalRecord;
 import com.openclassrooms.SafetyNetAlerts.model.Person;
-import com.openclassrooms.SafetyNetAlerts.service.AddressService;
-import com.openclassrooms.SafetyNetAlerts.service.FireStationService;
-import com.openclassrooms.SafetyNetAlerts.service.MedicalRecordService;
-import com.openclassrooms.SafetyNetAlerts.service.PersonService;
+import com.openclassrooms.SafetyNetAlerts.service.ImplAddressService;
+import com.openclassrooms.SafetyNetAlerts.service.ImplFireStationService;
+import com.openclassrooms.SafetyNetAlerts.service.ImplMedicalRecordService;
+import com.openclassrooms.SafetyNetAlerts.service.ImplPersonService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -44,13 +44,13 @@ public class ExtractionRunnerTest {
     @Mock
     PersonMapper personMapper;
     @Mock
-    PersonService personService;
+    ImplPersonService personService;
     @Mock
-    AddressService addressService;
+    ImplAddressService addressService;
     @Mock
-    MedicalRecordService medicalRecordService;
+    ImplMedicalRecordService medicalRecordService;
     @Mock
-    FireStationService fireStationService;
+    ImplFireStationService fireStationService;
     @Mock
     PersonRepository personRepository;
 

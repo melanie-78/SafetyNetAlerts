@@ -1,9 +1,8 @@
 package com.openclassrooms.SafetyNetAlerts.controller;
 
 import com.openclassrooms.SafetyNetAlerts.model.Address;
-import com.openclassrooms.SafetyNetAlerts.model.FireStation;
 import com.openclassrooms.SafetyNetAlerts.model.Person;
-import com.openclassrooms.SafetyNetAlerts.service.PhoneAlertService;
+import com.openclassrooms.SafetyNetAlerts.service.ImplPhoneAlertService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -30,7 +29,7 @@ public class PhoneAlertControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    PhoneAlertService phoneAlertService;
+    ImplPhoneAlertService phoneAlertService;
 
     @Test
     public void testGetPhoneAlert() throws Exception{

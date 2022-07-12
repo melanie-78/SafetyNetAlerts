@@ -1,12 +1,11 @@
 package com.openclassrooms.SafetyNetAlerts.mapper;
 
 
-import com.openclassrooms.SafetyNetAlerts.Repository.PersonRepository;
 import com.openclassrooms.SafetyNetAlerts.json.dto.MedicalRecordDto;
 import com.openclassrooms.SafetyNetAlerts.json.mapper.MedicalRecordMapper;
 import com.openclassrooms.SafetyNetAlerts.model.MedicalRecord;
 import com.openclassrooms.SafetyNetAlerts.model.Person;
-import com.openclassrooms.SafetyNetAlerts.service.PersonService;
+import com.openclassrooms.SafetyNetAlerts.service.ImplPersonService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -29,7 +28,7 @@ public class MedicalRecordMapperTest {
     private MedicalRecordMapper medicalRecordMapper;
 
     @Mock
-    PersonService personService;
+    ImplPersonService personService;
 
    @Test
     public void toEntityTest(){
