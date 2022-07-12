@@ -3,10 +3,13 @@ package com.openclassrooms.SafetyNetAlerts.json.mapper;
 
 import com.openclassrooms.SafetyNetAlerts.json.dto.PersonDto;
 import com.openclassrooms.SafetyNetAlerts.model.Person;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class PersonMapper {
+    @Autowired
+    private AddressMapper addressMapper;
     /**
      * the objective of this method is to transform resource data into data stored in the H2
      *
@@ -16,7 +19,7 @@ public class PersonMapper {
      * @return a person type saved in the H2
      */
 
-    public static Person toEntity(PersonDto personDto, AddressMapper addressMapper) {
+    public Person toEntity(PersonDto personDto) {
         Person person = new Person();
 
         person.setFirstName(personDto.getFirstName());

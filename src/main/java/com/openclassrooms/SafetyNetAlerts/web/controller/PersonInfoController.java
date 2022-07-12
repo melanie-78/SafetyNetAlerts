@@ -1,10 +1,8 @@
 package com.openclassrooms.SafetyNetAlerts.web.controller;
 
 
-import com.openclassrooms.SafetyNetAlerts.service.PersonInfoService;
+import com.openclassrooms.SafetyNetAlerts.service.ImplPersonInfoService;
 import com.openclassrooms.SafetyNetAlerts.web.dto.PersonInfoDto;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +19,7 @@ import java.util.NoSuchElementException;
 @RequestMapping("/personinfo")
 public class PersonInfoController {
     @Autowired
-    private PersonInfoService personInfoService;
+    private ImplPersonInfoService personInfoService;
 
     @GetMapping("")
     public ResponseEntity<List<PersonInfoDto>> getPersonInfo(@RequestParam("lastName") String lastName){

@@ -1,6 +1,6 @@
 package com.openclassrooms.SafetyNetAlerts.controller;
 
-import com.openclassrooms.SafetyNetAlerts.service.FireStationService;
+import com.openclassrooms.SafetyNetAlerts.service.ImplFireStationService;
 import com.openclassrooms.SafetyNetAlerts.web.controller.FireStationController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class FireStationControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private FireStationService fs;
+    private ImplFireStationService fs;
 
 
     @Test

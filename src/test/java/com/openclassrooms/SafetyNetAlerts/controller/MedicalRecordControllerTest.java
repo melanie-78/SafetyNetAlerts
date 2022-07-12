@@ -1,6 +1,6 @@
 package com.openclassrooms.SafetyNetAlerts.controller;
 
-import com.openclassrooms.SafetyNetAlerts.service.MedicalRecordService;
+import com.openclassrooms.SafetyNetAlerts.service.ImplMedicalRecordService;
 import com.openclassrooms.SafetyNetAlerts.web.controller.MedicalRecordController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class MedicalRecordControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private MedicalRecordService ms;
+    private ImplMedicalRecordService ms;
 
    @Test
     public void testPostMedicalRecord() throws Exception{

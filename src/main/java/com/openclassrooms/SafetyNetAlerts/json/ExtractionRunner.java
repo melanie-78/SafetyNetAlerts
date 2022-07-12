@@ -3,17 +3,16 @@ package com.openclassrooms.SafetyNetAlerts.json;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.openclassrooms.SafetyNetAlerts.json.dto.FireStationDto;
-import com.openclassrooms.SafetyNetAlerts.json.mapper.AddressMapper;
 import com.openclassrooms.SafetyNetAlerts.json.mapper.MedicalRecordMapper;
 import com.openclassrooms.SafetyNetAlerts.json.mapper.PersonMapper;
 import com.openclassrooms.SafetyNetAlerts.model.Address;
 import com.openclassrooms.SafetyNetAlerts.model.FireStation;
 import com.openclassrooms.SafetyNetAlerts.model.MedicalRecord;
 import com.openclassrooms.SafetyNetAlerts.model.Person;
-import com.openclassrooms.SafetyNetAlerts.service.AddressService;
-import com.openclassrooms.SafetyNetAlerts.service.FireStationService;
-import com.openclassrooms.SafetyNetAlerts.service.MedicalRecordService;
-import com.openclassrooms.SafetyNetAlerts.service.PersonService;
+import com.openclassrooms.SafetyNetAlerts.service.ImplAddressService;
+import com.openclassrooms.SafetyNetAlerts.service.ImplFireStationService;
+import com.openclassrooms.SafetyNetAlerts.service.ImplMedicalRecordService;
+import com.openclassrooms.SafetyNetAlerts.service.ImplPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -32,17 +31,15 @@ import static java.util.stream.Collectors.groupingBy;
 @Component
 public class ExtractionRunner implements CommandLineRunner{
     @Autowired
-    private PersonService personService;
+    private ImplPersonService personService;
     @Autowired
-    private FireStationService fireStationService;
+    private ImplFireStationService fireStationService;
     @Autowired
-    private MedicalRecordService medicalRecordService;
+    private ImplMedicalRecordService medicalRecordService;
     @Autowired
-    private AddressService addressService;
+    private ImplAddressService addressService;
     @Autowired
     private PersonMapper personMapper;
-    @Autowired
-    private AddressMapper addressMapper;
     @Autowired
     private MedicalRecordMapper medicalRecordMapper;
 
@@ -74,7 +71,7 @@ public class ExtractionRunner implements CommandLineRunner{
     public void extractPersons(DataWrapper dataWrapper){
         //Save persons
         Map<Address, List<Person>> addressListMap = dataWrapper.getPersons().stream()
-                .map(personDto -> personMapper.toEntity(personDto, addressMapper))
+                .map(personDto -> personMapper.toEntity(personDto))
                 .collect(groupingBy(person -> person.getAddress()));
         for (Map.Entry<Address, List<Person>> entry : addressListMap.entrySet()) {
             Address address = entry.getKey();

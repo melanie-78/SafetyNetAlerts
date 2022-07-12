@@ -1,11 +1,7 @@
 package com.openclassrooms.SafetyNetAlerts.web.controller;
 
-import com.openclassrooms.SafetyNetAlerts.Repository.AddressRepository;
-import com.openclassrooms.SafetyNetAlerts.service.CommunityEmailService;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import com.openclassrooms.SafetyNetAlerts.service.ImplCommunityEmailService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +18,7 @@ import java.util.NoSuchElementException;
 
 public class CommunityEmailController {
     @Autowired
-    private CommunityEmailService communityEmailService;
+    private ImplCommunityEmailService communityEmailService;
 
     @GetMapping("")
     public ResponseEntity<List<String>> getCommunityEmail(@RequestParam("city") String city){

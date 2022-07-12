@@ -14,7 +14,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -28,7 +27,7 @@ import static org.mockito.Mockito.*;
 
 public class FireServiceTest {
     @InjectMocks
-    private FireService fireService;
+    private ImplFireService fireService;
 
     @Mock
     AddressRepository addressRepository;

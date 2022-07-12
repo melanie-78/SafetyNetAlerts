@@ -13,7 +13,7 @@ public class AddressMapper {
      * @return an address type associated to a person saved in H2
      */
 
-    public static Address toEntity (PersonDto personDto){
+    public Address toEntity (PersonDto personDto){
         Address address = new Address();
 
         address.setCity(personDto.getCity());

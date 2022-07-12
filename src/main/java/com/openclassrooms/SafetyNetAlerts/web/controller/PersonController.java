@@ -2,16 +2,13 @@ package com.openclassrooms.SafetyNetAlerts.web.controller;
 
 
 import com.openclassrooms.SafetyNetAlerts.json.dto.PersonDto;
-import com.openclassrooms.SafetyNetAlerts.service.PersonService;
+import com.openclassrooms.SafetyNetAlerts.service.ImplPersonService;
 import com.openclassrooms.SafetyNetAlerts.web.dto.PersonUpdateDto;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 
 
@@ -20,7 +17,7 @@ import java.util.NoSuchElementException;
 @RequestMapping("/person")
 public class PersonController {
     @Autowired
-    private PersonService personService;
+    private ImplPersonService personService;
 
     @PostMapping("")
     public ResponseEntity<?> postPerson(@RequestBody PersonDto personDto){

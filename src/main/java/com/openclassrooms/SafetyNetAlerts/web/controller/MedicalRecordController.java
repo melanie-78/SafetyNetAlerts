@@ -1,9 +1,7 @@
 package com.openclassrooms.SafetyNetAlerts.web.controller;
 
 import com.openclassrooms.SafetyNetAlerts.json.dto.MedicalRecordDto;
-import com.openclassrooms.SafetyNetAlerts.service.MedicalRecordService;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import com.openclassrooms.SafetyNetAlerts.service.ImplMedicalRecordService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +14,7 @@ import java.util.NoSuchElementException;
 @RequestMapping("/medicalRecord")
 public class MedicalRecordController {
     @Autowired
-    private MedicalRecordService medicalRecordService;
+    private ImplMedicalRecordService medicalRecordService;
 
     @PostMapping("")
     public ResponseEntity<?> postMedicalRecord(@RequestBody MedicalRecordDto medicalRecordDto){

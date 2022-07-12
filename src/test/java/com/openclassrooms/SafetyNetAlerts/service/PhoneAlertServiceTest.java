@@ -4,7 +4,6 @@ import com.openclassrooms.SafetyNetAlerts.Repository.FireStationRepository;
 import com.openclassrooms.SafetyNetAlerts.model.Address;
 import com.openclassrooms.SafetyNetAlerts.model.FireStation;
 import com.openclassrooms.SafetyNetAlerts.model.Person;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,7 +25,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class PhoneAlertServiceTest {
     @InjectMocks
-    private PhoneAlertService phoneAlertService;
+    private ImplPhoneAlertService phoneAlertService;
 
     @Mock
     FireStationRepository fireStationRepository;

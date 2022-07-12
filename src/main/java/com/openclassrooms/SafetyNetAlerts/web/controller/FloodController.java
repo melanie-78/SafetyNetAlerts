@@ -1,9 +1,7 @@
 package com.openclassrooms.SafetyNetAlerts.web.controller;
 
-import com.openclassrooms.SafetyNetAlerts.service.FloodService;
+import com.openclassrooms.SafetyNetAlerts.service.ImplFloodService;
 import com.openclassrooms.SafetyNetAlerts.web.dto.FloodDto;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +17,7 @@ import java.util.NoSuchElementException;
 @RequestMapping("/flood")
 public class FloodController {
     @Autowired
-    private FloodService floodService;
+    private ImplFloodService floodService;
 
     @GetMapping("/stations")
     public List<FloodDto> getFlood(@RequestParam("stations") List<Integer> stations){

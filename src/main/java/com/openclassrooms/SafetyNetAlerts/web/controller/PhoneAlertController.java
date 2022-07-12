@@ -1,9 +1,6 @@
 package com.openclassrooms.SafetyNetAlerts.web.controller;
 
-import com.openclassrooms.SafetyNetAlerts.service.PhoneAlertService;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.openclassrooms.SafetyNetAlerts.service.ImplPhoneAlertService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +17,7 @@ import java.util.NoSuchElementException;
 @RequestMapping("/phonealert")
 public class PhoneAlertController {
     @Autowired
-    private PhoneAlertService phoneAlertService;
+    private ImplPhoneAlertService phoneAlertService;
 
     @GetMapping("")
     public ResponseEntity<List<String>> getPhoneAlert(@RequestParam("station") String station){

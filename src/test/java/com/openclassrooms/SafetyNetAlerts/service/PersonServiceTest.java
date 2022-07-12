@@ -30,7 +30,7 @@ import static org.mockito.Mockito.*;
 
 public class PersonServiceTest {
     @InjectMocks
-    private PersonService ps;
+    private ImplPersonService ps;
 
     @Mock
     PersonWebMapper personWebMapper;
@@ -39,7 +39,7 @@ public class PersonServiceTest {
     @Mock
     PersonRepository personRepository;
     @Mock
-    MedicalRecordService medicalRecordService;
+    ImplMedicalRecordService medicalRecordService;
 
     @Test
     public void savePersonWithAddressExistingTest() {

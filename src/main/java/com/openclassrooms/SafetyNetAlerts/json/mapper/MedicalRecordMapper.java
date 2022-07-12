@@ -3,17 +3,15 @@ package com.openclassrooms.SafetyNetAlerts.json.mapper;
 import com.openclassrooms.SafetyNetAlerts.json.dto.MedicalRecordDto;
 import com.openclassrooms.SafetyNetAlerts.model.MedicalRecord;
 import com.openclassrooms.SafetyNetAlerts.model.Person;
-import com.openclassrooms.SafetyNetAlerts.service.PersonService;
+import com.openclassrooms.SafetyNetAlerts.service.ImplPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.NoSuchElementException;
 
 @Component
 public class MedicalRecordMapper {
 
     @Autowired
-    PersonService personService;
+    ImplPersonService personService;
 
     /**
      *

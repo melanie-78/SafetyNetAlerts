@@ -1,6 +1,6 @@
 package com.openclassrooms.SafetyNetAlerts.controller;
 
-import com.openclassrooms.SafetyNetAlerts.service.ChildAlertService;
+import com.openclassrooms.SafetyNetAlerts.service.ImplChildAlertService;
 import com.openclassrooms.SafetyNetAlerts.web.dto.ChildAlertDto;
 import com.openclassrooms.SafetyNetAlerts.web.dto.PersonAgeDto;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ public class ChildAlertControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    ChildAlertService childAlertService;
+    ImplChildAlertService childAlertService;
 
     @Test
     public void testGetChildAlert() throws Exception{
