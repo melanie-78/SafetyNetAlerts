@@ -28,7 +28,7 @@ The objective is to create the backend of a new "SafetyNet Alerts" application f
 ## uml
 ![uml](https://user-images.githubusercontent.com/92317049/230873965-9c14f3e5-b02c-4816-8a3a-2e45ff788ca2.png)
 
-##Use cases
+## Use cases
 
 ![projet5](https://user-images.githubusercontent.com/92317049/230874480-d14557dd-e27d-4033-b187-0ee772f12f49.png)
 
